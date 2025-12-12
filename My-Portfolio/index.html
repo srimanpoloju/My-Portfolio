@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sriman Poloju - Full Stack Java Developer</title>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: linear-gradient(135deg, #0f172a 0%, #581c87 50%, #0f172a 100%);
+            color: white;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+        }
+
+        .hero-bg-element {
+            position: absolute;
+            border-radius: 50%;
+            mix-blend-mode: multiply;
+            filter: blur(40px);
+            opacity: 0.2;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .hero-bg-element:nth-child(1) {
+            top: 5rem;
+            left: 5rem;
+            width: 18rem;
+            height: 18rem;
+            background: #a855f7;
+        }
+
+        .hero-bg-element:nth-child(2) {
+            top: 10rem;
+            right: 5rem;
+            width: 18rem;
+            height: 18rem;
+            background: #eab308;
+            animation-delay: 2s;
+        }
+
+        .hero-bg-element:nth-child(3) {
+            bottom: -2rem;
+            left: 10rem;
+            width: 18rem;
+            height: 18rem;
+            background: #ec4899;
+            animation-delay: 4s;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .hero-name {
+            background: linear-gradient(45deg, #a855f7, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .typing-container {
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .typing-text {
+            font-size: 1.5rem;
+            color: #d1d5db;
+            border-right: 2px solid #a855f7;
+            padding-right: 4px;
+            animation: blink 1s infinite;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: #9ca3af;
+            margin-bottom: 2rem;
+            max-width: 42rem;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease-out 1s forwards;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease-out 1.5s forwards;
+        }
+
+        .social-link {
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+        }
+
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .chevron-down {
+            animation: bounce 2s infinite;
+            margin: 0 auto;
+            width: 2rem;
+            height: 2rem;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+        }
+
+        .section-title.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 20rem;
+            height: 20rem;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #a855f7, #ec4899);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-image-inner {
+            width: 18rem;
+            height: 18rem;
+            background: #1e293b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .about-image-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .about-text {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .about-text p {
+            font-size: 1.125rem;
+            line-height: 1.75;
+            color: #d1d5db;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #a855f7;
+        }
+
+        .stat-label {
+            color: #9ca3af;
+        }
+
+        .education-section {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .education-section h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .education-item {
+            color: #d1d5db;
+            font-size: 1.125rem;
+            line-height: 1.75;
+        }
+
+        .education-item .degree {
+            font-weight: 600;
+            color: #a855f7;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+        }
+
+        .skill-category.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skill-category h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-item {
+            margin-bottom: 1rem;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-name {
+            color: #d1d5db;
+        }
+
+        .skill-percentage {
+            color: #a855f7;
+        }
+
+        .skill-bar {
+            width: 100%;
+            height: 0.5rem;
+            background: #374151;
+            border-radius: 0.25rem;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #a855f7, #ec4899);
+            border-radius: 0.25rem;
+            width: 0%;
+            transition: width 1s ease-out;
+        }
+
+        /* Experience Section */
+        .experience-timeline {
+            position: relative;
+            max-width: 64rem;
+            margin: 0 auto;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 2rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #a855f7, #ec4899);
+        }
+
+        .experience-item {
+            position: relative;
+            padding-left: 5rem;
+            padding-bottom: 3rem;
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 1s ease;
+        }
+
+        .experience-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 1.5rem;
+            top: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+            background: linear-gradient(45deg, #a855f7, #ec4899);
+            border-radius: 50%;
+            border: 4px solid #0f172a;
+        }
+
+        .experience-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .experience-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .experience-role {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .experience-company {
+            font-size: 1.125rem;
+            color: #a855f7;
+            font-weight: 600;
+        }
+
+        .experience-meta {
+            text-align: right;
+            font-size: 0.875rem;
+            color: #9ca3af;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .experience-meta div {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .experience-description {
+            color: #d1d5db;
+            margin-bottom: 1rem;
+        }
+
+        .achievements-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #a855f7;
+            margin-bottom: 0.5rem;
+        }
+
+        .achievements-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .achievements-list li {
+            color: #d1d5db;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: start;
+        }
+
+        .achievements-list li::before {
+            content: "•";
+            color: #a855f7;
+            margin-right: 0.5rem;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            transition: all 0.5s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .project-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            flex: 1;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .project-link {
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .project-description {
+            color: #d1d5db;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-tag {
+            padding: 0.25rem 0.5rem;
+            background: rgba(168, 85, 247, 0.2);
+            color: #c084fc;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+        }
+
+        .project-achievements {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .project-achievements li {
+            color: #9ca3af;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: start;
+        }
+
+        .project-achievements li::before {
+            content: "•";
+            color: #a855f7;
+            margin-right: 0.5rem;
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info p {
+            font-size: 1.125rem;
+            color: #d1d5db;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            padding: 0.75rem;
+            background: rgba(168, 85, 247, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-details h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-details p {
+            color: #d1d5db;
+            margin: 0;
+        }
+
+        .contact-links-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-links-card h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-link-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .contact-link-icon {
+            padding: 0.75rem;
+            background: rgba(168, 85, 247, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-link-details h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-link-details p {
+            color: #d1d5db;
+            margin: 0;
+        }
+
+        /* Background Sections */
+        .bg-dark {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.2;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.3;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 53%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40%, 43% {
+                transform: translateY(-10px);
+            }
+            70% {
+                transform: translateY(-5px);
+            }
+            90% {
+                transform: translateY(-2px);
+            }
+        }
+
+        @keyframes blink {
+            0%, 50% {
+                border-color: #a855f7;
+            }
+            51%, 100% {
+                border-color: transparent;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .typing-text {
+                font-size: 1.25rem;
+            }
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                width: 16rem;
+                height: 16rem;
+            }
+
+            .about-image-inner {
+                width: 14rem;
+                height: 14rem;
+                font-size: 2rem;
+            }
+
+            .experience-header {
+                flex-direction: column;
+                align-items: start;
+            }
+
+            .experience-meta {
+                text-align: left;
+                margin-top: 0.5rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="hero-bg-element"></div>
+            <div class="hero-bg-element"></div>
+            <div class="hero-bg-element"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Hi, I'm <span class="hero-name">Sriman</span></h1>
+            <div class="typing-container">
+                <span class="typing-text" id="typingText"></span>
+            </div>
+            <p class="hero-description">
+                Passionate about building scalable web applications with Java, Spring Boot, TypeScript, React.js, Node.js and cloud technologies.
+            </p>
+            <div class="social-links">
+                <a href="mailto:polojusriman265@gmail.com" class="social-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/srimanpol/" target="_blank" rel="noopener noreferrer" class="social-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                </a>
+                <a href="https://github.com/srimanpoloju" target="_blank" rel="noopener noreferrer" class="social-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3.5 0 4.1-2.3 4.1-4.9 0-1.1-.4-2.2-1.2-3.1.1-.4.6-1.9 0-3.2 0 0-1.4.4-4.1 3.2-1.3-.4-2.7-.4-4 0-2.7-2.8-4.1-3.2-4.1-3.2-.5 1.3 0 2.8 0 3.2-.8.9-1.2 2-1.2 3.1 0 2.6.6 4.9 4.1 4.9-.9.6-1.4 1.7-1.4 3.2v4"/><path d="M9 18c-4.5 1.2-5-5-5-5"/></svg>
+                </a>
+            </div>
+            <div class="chevron-down">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title" id="aboutTitle">About Me</h2>
+            <div class="about-grid">
+                <div class="about-image">
+                    <div class="about-image-inner">
+                        <picture>
+                            <source srcset="images/profile_photos/AI image.avif" type="image/avif">
+                            <img src="images/profile_photos/AI image.avif" alt="Sriman Poloju" class="about-image-photo">
+                        </picture>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <p>I’m Sriman Poloju, a Full Stack Developer with 6+ years of experience building scalable, secure, and cloud-native applications. I specialize in Java, Spring Boot, TypeScript, React, Node.js, Microservices, and RESTful APIs, and have strong frontend skills in Angular, React.js, TypeScript.
+
+</p>
+                    <p>I’ve delivered enterprise solutions for clients like PayPal, Informatica, General Motors, and Accenture, working across cloud platforms (AWS, GCP, Azure), CI/CD (Jenkins, GitHub Actions), and container orchestration with Docker and Kubernetes. I'm passionate about clean architecture, performance optimization, and building reliable, production-ready systems using Agile and DevOps practices.</p>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number">6+</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Projects Completed</div>
+                        </div>
+                    </div>
+                    <div class="education-section">
+                        <h3>Education</h3>
+                        <div class="education-item">
+                            <p class="degree">Master of Science in Information Technology – Business Data Analytics</p>
+                            <p>Central Michigan University – Mount Pleasant, MI</p>
+                        </div>
+                        <div class="education-item">
+                            <p class="degree">Bachelor of Science in Electronics and Communication Engineering</p>
+                            <p>Jawaharlal Nehru Technological University – Hyderabad, India</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section bg-dark">
+        <div class="container">
+            <h2 class="section-title" id="skillsTitle">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Core Development</h3>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Java</span>
+                            <span class="skill-percentage">95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="95"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">JavaScript</span>
+                            <span class="skill-percentage">95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">SQL</span>
+                            <span class="skill-percentage">95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">TypeScript</span>
+                            <span class="skill-percentage">95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="75"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Python</span>
+                            <span class="skill-percentage">90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="80"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">React.js</span>
+                            <span class="skill-percentage">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Angular 11</span>
+                            <span class="skill-percentage">80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="80"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">HTML5</span>
+                            <span class="skill-percentage">90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="90"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">CSS3</span>
+                            <span class="skill-percentage">90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="90"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">JSP</span>
+                            <span class="skill-percentage">70%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="70"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Bootstrap</span>
+                            <span class="skill-percentage">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">jQuery</span>
+                            <span class="skill-percentage">75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="75"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Spring Boot</span>
+                            <span class="skill-percentage">90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="90"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Spring MVC</span>
+                            <span class="skill-percentage">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Spring Data JPA</span>
+                            <span class="skill-percentage">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Hibernate</span>
+                            <span class="skill-percentage">80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="80"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Quarkus</span>
+                            <span class="skill-percentage">75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="75"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Struts</span>
+                            <span class="skill-percentage">65%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="65"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Data & Integration</h3>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">PostgreSQL</span>
+                            <span class="skill-percentage">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Oracle</span>
+                            <span class="skill-percentage">80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="80"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">MySQL</span>
+                            <span class="skill-percentage">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Google BigQuery</span>
+                            <span class="skill-percentage">75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="75"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">PL/SQL</span>
+                            <span class="skill-percentage">70%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="70"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Apache Kafka</span>
+                            <span class="skill-percentage">80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="80"></div>
+                        </div>
+                    </div>
+            
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">MongoDB</span>
+                            <span class="skill-percentage">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="75"></div>
+                        </div>
+                    </div>
+                    
+                <div class="skill-category">
+                    <h3>Cloud & DevOps</h3>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">AWS (EC2, S3, Lambda)</span>
+                            <span class="skill-percentage">80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="80"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Google Cloud Platform (GCP)</span>
+                            <span class="skill-percentage">75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="75"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Microsoft Azure</span>
+                            <span class="skill-percentage">70%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="70"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Docker</span>
+                            <span class="skill-percentage">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Kubernetes</span>
+                            <span class="skill-percentage">75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="75"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Jenkins</span>
+                            <span class="skill-percentage">80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="80"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">GitHub Actions</span>
+                            <span class="skill-percentage">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">GitLab CI/CD</span>
+                            <span class="skill-percentage">80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="80"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Maven</span>
+                            <span class="skill-percentage">90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="90"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Gradle</span>
+                            <span class="skill-percentage">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Helm</span>
+                            <span class="skill-percentage">70%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="70"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Git</span>
+                            <span class="skill-percentage">95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="95"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">GitHub</span>
+                            <span class="skill-percentage">90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="90"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Bitbucket</span>
+                            <span class="skill-percentage">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85"></div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title" id="experienceTitle">Professional Experience</h2>
+            <div class="experience-timeline">
+                <div class="timeline-line"></div>
+                
+                <div class="experience-item">
+                    <div class="timeline-dot"></div>
+                    <div class="experience-card">
+                        <div class="experience-header">
+                            <div>
+                                <h3 class="experience-role">Full Stack Engineer</h3>
+                                <h4 class="experience-company">PayPal</h4>
+                            </div>
+                            <div class="experience-meta">
+                                <div><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg> Oct 2025 - Present</div>
+                                <div><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M12 12.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/><path d="M12 22.5V14"/><path d="M12 14a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z"/></svg> United States</div>
+                            </div>
+                        </div>
+                        <p class="experience-description">
+                            Global Pay Later (BNPL)
+                        </p>
+                        <div>
+                            <h5 class="achievements-title">Key Achievements:</h5>
+                            <ul class="achievements-list">
+                                <li>Built frontend components in ReactJS for BNPL customer flows including eligibility, KYC, offer selection, and loan summary.</li>
+                                <li>Developed backend features using NodeJS + GraphQL, designing schemas, resolvers, and APIs powering BNPL acquisition & repayment journeys.</li>
+                                <li>Created and updated GraphQL schema definitions, queries, and mutations for product overview, loan summary, and other BNPL features.</li>
+                                <li>Integrated backend with internal services such as AcquisitionService, RiskEvaluationService, AccountService, and more to retrieve eligibility, loan, and user data.</li>
+                                <li>Implemented and consumed REST + GraphQL APIs, including building APIs from scratch and integrating them with React/Apollo on the frontend.</li>
+                                <li>Performed full-stack testing using Postman, CAST, and internal QA tools to validate cross-region BNPL flows.</li>
+                                <li>Worked with cross-functional engineers to resolve CI issues, optimize response structures, and align schema changes across the BNPL ecosystem.</li>
+                                <li>Contributed to a globally distributed platform supporting Pay in 4, Pay Monthly, Pay in 3 across US, UK, EU, AU, and CA.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="experience-item">
+                    <div class="timeline-dot"></div>
+                    <div class="experience-card">
+                        <div class="experience-header">
+                            <div>
+                                <h3 class="experience-role">Full Stack Java Developer</h3>
+                                <h4 class="experience-company">INFORMATICA</h4>
+                            </div>
+                            <div class="experience-meta">
+                                <div><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg> Oct 2024 - Oct 2025</div>
+                                <div><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M12 12.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/><path d="M12 22.5V14"/><path d="M12 14a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z"/></svg> United States</div>
+                            </div>
+                        </div>
+                        <p class="experience-description">
+                            Designed & delivered Spring Boot microservices integrating with Informatica MDM/Data Quality, exposing clean customer data via secure REST APIs to internal CRM, analytics, and compliance systems.
+                        </p>
+                        <div>
+                            <h5 class="achievements-title">Key Achievements:</h5>
+                            <ul class="achievements-list">
+                                <li>Refactored legacy ETL logic from Informatica PowerCenter into modular Java services, boosting runtime performance by 35% and simplifying pipeline management.</li>
+                                <li>Developed an interactive Angular dashboard, providing real-time customer metrics, data lineage, and quality dashboards for business users and data stewards.</li>
+                                <li>Implemented Kafka-based streaming architecture for real-time event notifications, enabling downstream systems to receive customer updates instantly.</li>
+                                <li>Applied data validation, deduplication, and standardization rules through Informatica Data Quality to ensure accuracy before mastering.</li>
+                                <li>Containerized & orchestrated services using Docker and Kubernetes, delivering scalable, resilient deployment environments across staging and production.</li>
+                                <li>Automated CI/CD pipelines with Git and Jenkins, reducing release cycle time by 50% and minimizing manual deployment errors.</li>
+                                <li>Secured microservices with JWT authentication and RBAC using Spring Security, ensuring compliance with internal access policies.</li>
+                                <li>Achieved >95% test coverage via JUnit, Mockito, and Postman tests, significantly reducing post-release defects.</li>
+                                <li>Collaborated in Agile sprints with cross-functional teams (QA, DevOps, BI, Product) to iterate rapidly and strengthen data governance frameworks.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="timeline-dot"></div>
+                    <div class="experience-card">
+                        <div class="experience-header">
+                            <div>
+                                <h3 class="experience-role">Full Stack Developer</h3>
+                                <h4 class="experience-company">GENERAL MOTORS</h4>
+                            </div>
+                            <div class="experience-meta">
+                                <div><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg> Oct 2023 – Sep 2024</div>
+                                <div><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M12 12.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/><path d="M12 22.5V14"/><path d="M12 14a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z"/></svg> United States</div>
+                            </div>
+                        </div>
+                        <p class="experience-description">
+                            Designed and developed scalable enterprise web applications using Java (Quarkus, Spring Boot) and RESTful APIs, following microservices best practices.
+                        </p>
+                        <div>
+                            <h5 class="achievements-title">Key Achievements:</h5>
+                            <ul class="achievements-list">
+                                <li>Built a responsive Angular frontend to display engineering dashboards, failure mode assessments, and actionable insights.</li>
+                                <li>Created optimized SQL queries and stored procedures for engineering and quality data, improving retrieval performance.</li>
+                                <li>Integrated GitHub Actions and Maven to automate CI/CD pipelines, reducing release cycle time and ensuring build consistency.</li>
+                                <li>Ensured code quality and security using SonarQube for static code analysis and industry best practices.</li>
+                                <li>Migrated legacy quality systems to cloud-native architecture on Microsoft Azure using Docker and Kubernetes.</li>
+                                <li>Collaborated with cross-functional Agile teams including QA, DevOps, and Product to deliver incremental enhancements.</li>
+                                <li>Mentored junior developers, conducted code reviews, and participated in architecture decision-making processes.</li>
+                                <li>Debugged, optimized, and maintained production systems to ensure high availability and performance.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="timeline-dot"></div>
+                    <div class="experience-card">
+                        <div class="experience-header">
+                            <div>
+                                <h3 class="experience-role">Full Stack Java Developer</h3>
+                                <h4 class="experience-company">ACCENTURE</h4>
+                            </div>
+                            <div class="experience-meta">
+                                <div><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg> June 2022 – Jul 2023</div>
+                                <div><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M12 12.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/><path d="M12 22.5V14"/><path d="M12 14a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z"/></svg> United States</div>
+                            </div>
+                        </div>
+                        <p class="experience-description"></p>
+                        <div>
+                            <h5 class="achievements-title">Key Achievements:</h5>
+                            <ul class="achievements-list">
+                                <li>Led the modernization of a legacy web application by migrating backend data sources from Oracle to PostgreSQL and Google BigQuery, enhancing query efficiency and data accessibility.</li>
+                                <li>Directed the migration of complex Oracle databases to Google BigQuery, reducing data ingestion and processing times by 90%.</li>
+                                <li>Designed and developed scalable Spring Boot microservices exposing RESTful APIs, seamlessly integrated with dynamic Angular frontend applications.</li>
+                                <li>Deployed microservices on Google Cloud Platform (GCP) and Red Hat OpenShift, optimizing for high availability, scalability, and performance within containerized environments.</li>
+                                <li>Built and maintained automated CI/CD pipelines using Jenkins and Gradle, accelerating release cycles and ensuring consistent build quality.</li>
+                                <li>Implemented Test-Driven Development (TDD) and Behavior-Driven Development (BDD) practices with JUnit, Mockito, and Cucumber, improving code quality and reducing defects.</li>
+                                <li>Collaborated closely with Agile/Scrum teams, participating in sprint planning, daily stand-ups, and retrospectives to deliver continuous improvements aligned with business goals.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="timeline-dot"></div>
+                    <div class="experience-card">
+                        <div class="experience-header">
+                            <div>
+                                <h3 class="experience-role">Java Developer</h3>
+                                <h4 class="experience-company">COGNIZANT</h4>
+                            </div>
+                            <div class="experience-meta">
+                                <div><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg> April 2021 – May 2022</div>
+                                <div><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M12 12.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/><path d="M12 22.5V14"/><path d="M12 14a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z"/></svg> United States</div>
+                            </div>
+                        </div>
+                        <p class="experience-description"></p>
+                        <div>
+                            <h5 class="achievements-title">Key Achievements:</h5>
+                            <ul class="achievements-list">
+                                <li>Developed robust and scalable RESTful APIs for member enrollment and claims processing using Spring Boot, ensuring high availability and performance.</li>
+                                <li>Implemented complex business logic with Spring MVC and utilized Hibernate ORM for efficient database interaction and object-relational mapping.</li>
+                                <li>Designed, normalized, and optimized Oracle database schemas to support transactional and reporting requirements, improving query performance.</li>
+                                <li>Integrated and tested third-party healthcare services and APIs, ensuring compliance with HIPAA and industry security standards.</li>
+                                <li>Collaborated closely with QA teams to conduct comprehensive unit and integration testing, using JUnit and Mockito to maintain code quality.</li>
+                                <li>Participated actively in Agile ceremonies including sprint planning, daily stand-ups, retrospectives, and backlog grooming to ensure timely delivery.</li>
+                                <li>Managed source code versioning and collaboration using Git, including pull requests and code reviews to maintain high coding standards.</li>
+                                <li>Supported deployment, monitoring, and scaling of applications on AWS Cloud environments, leveraging services like EC2 and RDS.</li>
+                                <li>Troubleshot and resolved performance bottlenecks and production issues to ensure system reliability and user satisfaction.</li>
+                                <li>Documented technical designs, API specifications, and release notes to facilitate knowledge sharing and maintain project transparency.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="timeline-dot"></div>
+                    <div class="experience-card">
+                        <div class="experience-header">
+                            <div>
+                                <h3 class="experience-role">Software Developer</h3>
+                                <h4 class="experience-company">WIPRO</h4>
+                            </div>
+                            <div class="experience-meta">
+                                <div><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg> Nov 2019 – March 2021</div>
+                                <div><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M12 12.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/><path d="M12 22.5V14"/><path d="M12 14a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z"/></svg> India</div>
+                            </div>
+                        </div>
+                        <p class="experience-description"></p>
+                        <div>
+                            <h5 class="achievements-title">Key Achievements:</h5>
+                            <ul class="achievements-list">
+                                <li>Developed and maintained scalable full-stack web applications to support Vodafone’s telecom services and customer management portals.</li>
+                                <li>Built and integrated RESTful APIs using Java Spring Boot backend, enabling seamless communication between multiple internal systems and third-party services.</li>
+                                <li>Designed responsive user interfaces using Angular and React.js, improving user experience for customer-facing and internal dashboards.</li>
+                                <li>Implemented business logic and workflows related to billing, customer subscriptions, and real-time service monitoring.</li>
+                                <li>Collaborated with cross-functional teams including product managers, QA, and network engineers to deliver high-quality telecom solutions.</li>
+                                <li>Deployed applications in AWS cloud environments using Docker containers and managed orchestration via Kubernetes for scalability and resilience.</li>
+                                <li>Participated in Agile/Scrum ceremonies, including sprint planning, daily stand-ups, and retrospectives to ensure iterative delivery of features.</li>
+                                <li>Developed automated unit and integration tests using JUnit, Mockito, and Jest, ensuring code quality and reducing defects.</li>
+                                <li>Monitored and optimized application performance, troubleshooting issues in production and collaborating with DevOps teams to maintain uptime.</li>
+                                <li>Ensured compliance with telecom industry standards and security best practices throughout the development lifecycle.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="timeline-dot"></div>
+                    <div class="experience-card">
+                        <div class="experience-header">
+                            <div>
+                                <h3 class="experience-role">Software Intern</h3>
+                                <h4 class="experience-company">Tech Mahindra Ltd</h4>
+                            </div>
+                            <div class="experience-meta">
+                                <div><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg> May 2019 – Oct 2019</div>
+                                <div><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M12 12.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/><path d="M12 22.5V14"/><path d="M12 14a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z"/></svg> India</div>
+                            </div>
+                        </div>
+                        <p class="experience-description"></p>
+                        <div>
+                            <h5 class="achievements-title">Key Achievements:</h5>
+                            <ul class="achievements-list">
+                                <li>Assisted in the development of backend modules using Java, contributing to feature enhancements and bug fixes.</li>
+                                <li>Supported software testing and debugging efforts to improve application stability and performance.</li>
+                                <li>Executed basic SQL queries for data retrieval and manipulation, ensuring data accuracy.</li>
+                                <li>Managed source code versioning using Git, collaborating with team members for efficient code integration.</li>
+                                <li>Participated in Agile team ceremonies, including daily standups and sprint planning meetings, gaining practical experience in Agile methodologies.</li>
+                                <li>Assisted in preparing technical documentation to support project deliverables and knowledge sharing.</li>
+                                <li>Collaborated with cross-functional teams to understand requirements and deliver assigned tasks effectively.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section bg-dark">
+        <div class="container">
+            <h2 class="section-title" id="projectsTitle">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">🏥 MediCare – Hospital Management System</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/polojusriman/hospital-management-system" target="_blank" rel="noopener noreferrer" class="project-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide luc="lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3.5 0 4.1-2.3 4.1-4.9 0-1.1-.4-2.2-1.2-3.1.1-.4.6-1.9 0-3.2 0 0-1.4.4-4.1 3.2-1.3-.4-2.7-.4-4 0-2.7-2.8-4.1-3.2-4.1-3.2-.5 1.3 0 2.8 0 3.2-.8.9-1.2 2-1.2 3.1 0 2.6.6 4.9 4.1 4.9-.9.6-1.4 1.7-1.4 3.2v4"/><path d="M9 18c-4.5 1.2-5-5-5-5"/></svg>
+                            </a>
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="project-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        Full-stack web-based Hospital Management System designed to streamline hospital operations, including patient registration, appointment scheduling, medical records, billing, and staff management.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Java</span>
+                        <span class="tech-tag">JDBC</span>
+                        <span class="tech-tag">Servlets</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">HTML</span>
+                        <span class="tech-tag">CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">MVC</span>
+                    </div>
+                    <ul class="project-achievements">
+                        <li>Role-based access for patients and doctors</li>
+                        <li>Unified platform for hospital operations</li>
+                        <li>Complete medical records and billing management</li>
+                    </ul>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">🏢 Employee Management System (EMS)</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/srimanpoloju/Employee-Management-System" target="_blank" rel="noopener noreferrer" class="project-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3.5 0 4.1-2.3 4.1-4.9 0-1.1-.4-2.2-1.2-3.1.1-.4.6-1.9 0-3.2 0 0-1.4.4-4.1 3.2-1.3-.4-2.7-.4-4 0-2.7-2.8-4.1-3.2-4.1-3.2-.5 1.3 0 2.8 0 3.2-.8.9-1.2 2-1.2 3.1 0 2.6.6 4.9 4.1 4.9-.9.6-1.4 1.7-1.4 3.2v4"/><path d="M9 18c-4.5 1.2-5-5-5-5"/></svg>
+                            </a>
+                            <a href="https://srimanpoloju.github.io/Employee-Management-System/" target="_blank" rel="noopener noreferrer" class="project-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        A responsive and interactive Employee Management System built with HTML, CSS, and JavaScript. This application enables employees and HR personnel to manage essential functions such as profiles, attendance, leave applications, payroll, performance tracking, recruitment, and training.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                    </div>
+                    <ul class="project-achievements">
+                        <li>User Authentication with demo credentials</li>
+                        <li>Employee Profile view and update</li>
+                        <li>Attendance Tracking with Clock In/Out</li>
+                        <li>Leave Management with history and application forms</li>
+                        <li>Performance Evaluation with metrics and goals</li>
+                        <li>Payroll Details with salary, deductions, and benefits</li>
+                        <li>Recruitment Management including referral submissions</li>
+                        <li>Training & Development with progress tracking and certifications</li>
+                    </ul>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Role-Based Access Control System</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/polojusriman" target="_blank" rel="noopener noreferrer" class="project-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3.5 0 4.1-2.3 4.1-4.9 0-1.1-.4-2.2-1.2-3.1.1-.4.6-1.9 0-3.2 0 0-1.4.4-4.1 3.2-1.3-.4-2.7-.4-4 0-2.7-2.8-4.1-3.2-4.1-3.2-.5 1.3 0 2.8 0 3.2-.8.9-1.2 2-1.2 3.1 0 2.6.6 4.9 4.1 4.9-.9.6-1.4 1.7-1.4 3.2v4"/><path d="M9 18c-4.5 1.2-5-5-5-5"/></svg>
+                            </a>
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="project-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        Secure desktop-based RBAC system with dynamic user permission management.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">SQLite</span>
+                        <span class="tech-tag">Tkinter</span>
+                        <span class="tech-tag">Authentication</span>
+                    </div>
+                    <ul class="project-achievements">
+                        <li>Robust role-based access layers</li>
+                        <li>Intuitive admin interface</li>
+                        <li>Comprehensive security validation</li>
+                    </ul>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Face Detection & Recognition System</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/polojusriman" target="_blank" rel="noopener noreferrer" class="project-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3.5 0 4.1-2.3 4.1-4.9 0-1.1-.4-2.2-1.2-3.1.1-.4.6-1.9 0-3.2 0 0-1.4.4-4.1 3.2-1.3-.4-2.7-.4-4 0-2.7-2.8-4.1-3.2-4.1-3.2-.5 1.3 0 2.8 0 3.2-.8.9-1.2 2-1.2 3.1 0 2.6.6 4.9 4.1 4.9-.9.6-1.4 1.7-1.4 3.2v4"/><path d="M9 18c-4.5 1.2-5-5-5-5"/></svg>
+                            </a>
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="project-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        Real-time face detection and recognition application using computer vision and deep learning.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">OpenCV</span>
+                        <span class="tech-tag">Dlib</span>
+                        <span class="tech-tag">Deep Learning</span>
+                        <span class="tech-tag">NumPy</span>
+                    </div>
+                    <ul class="project-achievements">
+                        <li>Real-time webcam processing</li>
+                        <li>High accuracy recognition</li>
+                        <li>Cross-platform compatibility</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title" id="contactTitle">Get In Touch</h2>
+
+            <div class="contact-grid">
+                
+                <div class="contact-info">
+                    <h3>Let's Connect</h3>
+                    <p>I'm always interested in discussing new opportunities, innovative projects, and collaborations. Feel free to reach out!</p>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>polojusriman265@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2.02 15.92 15.92 0 0 1-3.43-.35 1 1 0 0 1-.93-.63L12.6 16.5a1 1 0 0 1 .14-1.08l1.5-1.5a1 1 0 0 1 1.08-.14l2.34 2.34a1 1 0 0 1 .63.93Z"/><path d="M18.42 10.64a12.21 12.21 0 0 0-3.42-3.42"/><path d="M14.79 6.18a19.5 19.5 0 0 0-3.42-3.42"/></svg>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Phone</h4>
+                            <p>+1 217-441-6979</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-links-card">
+                    <h3>Ready to Connect?</h3>
+
+                    <a href="mailto:polojusriman265@gmail.com" class="contact-link-item">
+                        <div class="contact-link-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        </div>
+                        <div class="contact-link-details">
+                            <h4>Send Email</h4>
+                            <p>polojusriman265@gmail.com</p>
+                        </div>
+                    </a>
+
+                    <a href="tel:+12174416979" class="contact-link-item">
+                        <div class="contact-link-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2.02 15.92 15.92 0 0 1-3.43-.35 1 1 0 0 1-.93-.63L12.6 16.5a1 1 0 0 1 .14-1.08l1.5-1.5a1 1 0 0 1 1.08-.14l2.34 2.34a1 1 0 0 1 .63.93Z"/><path d="M18.42 10.64a12.21 12.21 0 0 0-3.42-3.42"/><path d="M14.79 6.18a19.5 19.5 0 0 0-3.42-3.42"/></svg>
+                        </div>
+                        <div class="contact-link-details">
+                            <h4>Call Me</h4>
+                            <p>+1 217-441-6979</p>
+                        </div>
+                    </a>
+
+                    <a href="https://www.linkedin.com/in/srimanpol/" target="_blank" rel="noopener noreferrer" class="contact-link-item">
+                        <div class="contact-link-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                        </div>
+                        <div class="contact-link-details">
+                            <h4>LinkedIn</h4>
+                            <p>Connect with me</p>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/srimanpoloju" target="_blank" rel="noopener noreferrer" class="contact-link-item">
+                        <div class="contact-link-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3.5 0 4.1-2.3 4.1-4.9 0-1.1-.4-2.2-1.2-3.1.1-.4.6-1.9 0-3.2 0 0-1.4.4-4.1 3.2-1.3-.4-2.7-.4-4 0-2.7-2.8-4.1-3.2-4.1-3.2-.5 1.3 0 2.8 0 3.2-.8.9-1.2 2-1.2 3.1 0 2.6.6 4.9 4.1 4.9-.9.6-1.4 1.7-1.4 3.2v4"/><path d="M9 18c-4.5 1.2-5-5-5-5"/></svg>
+                        </div>
+                        <div class="contact-link-details">
+                            <h4>GitHub</h4>
+                            <p>View my code</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Typing Effect
+        const titles = [
+            "Full Stack Developer",
+            "Spring Boot Expert",
+            "TypeScript",
+            "React.js",
+            "Node.js",
+            "Cloud Solutions Architect",
+            "Microservices Specialist",
+        ];
+        let titleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingTextElement = document.getElementById("typingText");
+
+        function type() {
+            const currentTitle = titles[titleIndex];
+            if (!isDeleting) {
+                typingTextElement.textContent = currentTitle.substring(0, charIndex + 1);
+                charIndex++;
+                if (charIndex === currentTitle.length) {
+                    isDeleting = true;
+                    setTimeout(type, 2000); // Pause at end of typing
+                } else {
+                    setTimeout(type, 100);
+                }
+            } else {
+                typingTextElement.textContent = currentTitle.substring(0, charIndex - 1);
+                charIndex--;
+                if (charIndex === 0) {
+                    isDeleting = false;
+                    titleIndex = (titleIndex + 1) % titles.length;
+                    setTimeout(type, 500); // Pause before typing next title
+                } else {
+                    setTimeout(type, 50);
+                }
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", type);
+
+        // Intersection Observer for animations
+        const animateOnScroll = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    if (entry.target.id === 'skillsTitle') {
+                        animateSkillBars();
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        };
+
+        const sectionTitles = document.querySelectorAll('.section-title');
+        const skillCategories = document.querySelectorAll('.skill-category');
+        const experienceItems = document.querySelectorAll('.experience-item');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const titleObserver = new IntersectionObserver(animateOnScroll, observerOptions);
+        sectionTitles.forEach(title => titleObserver.observe(title));
+
+        const skillObserver = new IntersectionObserver(animateOnScroll, observerOptions);
+        skillCategories.forEach(category => skillObserver.observe(category));
+
+        const experienceObserver = new IntersectionObserver(animateOnScroll, observerOptions);
+        experienceItems.forEach(item => experienceObserver.observe(item));
+
+        const projectObserver = new IntersectionObserver(animateOnScroll, observerOptions);
+        projectCards.forEach(card => projectObserver.observe(card));
+
+        // Skill Bar Animation
+        function animateSkillBars() {
+            const skillProgressBars = document.querySelectorAll('.skill-progress');
+            skillProgressBars.forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                bar.style.width = `${width}%`;
+            });
+        }
+    </script>
+</body>
+</html>
